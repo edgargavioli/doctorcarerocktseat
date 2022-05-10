@@ -5,6 +5,10 @@ onScroll();
 function onScroll() {
     showNavOnScroll()
     showBackToTopButton()
+    activateMenuAtCurrentSection(home)
+    activateMenuAtCurrentSection(services)
+    activateMenuAtCurrentSection(about)
+    activateMenuAtCurrentSection(contact)
   }
 
 function showNavOnScroll() {
@@ -47,3 +51,29 @@ function showNavOnScroll() {
     footer,
     footer .logo,
     footer .social-links`);
+
+  function activateMenuAtCurrentSection (section) {
+     const targetLine = scrollY + innerHeight / 2
+     
+     const sectionTop = section.offsetTop
+     const sectionHeight = section.offsetHeight
+
+     const sectionTopReachOrPassedTargetLine = targetLine >= sectionTop
+
+     const sectionEndsAt = sectionTop + sectionHeight
+
+     const sectionEndPassedTargetLine = sectionEndsAt <= targetLine
+
+     const sectionBoundaries = sectionTopReachOrPassedTargetLine && !sectionEndPassedTargetLine
+
+     const menuElement = document.querySelector(`.menu a[href*=${section.getAttribute('id')}]`)
+
+    menuElement.classList.remove('active')
+
+     if (sectionBoundaries) {
+      menuElement.classList.add('active')
+     }
+      /* 0 Inicio -- 831 Services --
+       Sobre -- 2664.5 agende
+     */
+  }
